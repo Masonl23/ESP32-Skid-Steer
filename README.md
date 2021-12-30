@@ -22,8 +22,11 @@ Note that these parts below are the ones that i used in my build, you do not nee
  - 2 [Joystick](https://www.amazon.com/DEVMO-Joystick-Breakout-Controller-Arduino/dp/B07R7736QH/ref=sr_1_10?crid=SLVVSCZ3MQYJ&keywords=arduino%20analog%20joystick&qid=1640879626&sprefix=arduino%20anaog%20jo,aps,86&sr=8-10) modules 
  - 18k and 10k resistor and optional capacitors (I used 47uF but anything really works)
  - Buck converter 7.4v to 5v, any brand works however i realized later on that this is not necessary as the ESP32 can handle 7.4v (on vin pin)! However i am still using it .
+ - (optional) Y servo connector, connects the two servos on each side together, you could optionally just solder them together
+ - Perforate DIY breadboard for easy soldering 
+ - Will need access to a 3D printer for certain parts
 
-# Libraries Used 
+# 📚Libraries Used 
 
     #include  <ESP32Servo.h>
     #include  <esp_now.h>
@@ -38,4 +41,52 @@ Note that these parts below are the ones that i used in my build, you do not nee
  - [DifferentialSteering](https://github.com/edumardo/DifferentialSteering) library
  The rest you should be able to download from the library manager on Arduino
  
+# 🛠 How to build 
+Watch this [video](https://www.youtube.com/watch?v=ahsBrwnNrWI&), and this [one](https://www.youtube.com/watch?v=ji3Fsj78cEw&). These videos provide a great help and converting the model into the RC version, I followed everything in that video except for the motors for the wheels, converting the servo into continuous for me and the creator resulted in random jitter as it was very difficult to center the internal potentiometer. 
+
+The 3D files I [used](https://www.thingiverse.com/thing:1989001)  which was for the servo bucket attachment, i did not use the other parts as i messed up my wheels and used a different servo for the arm.
+
+The 3D files I [created](https://www.thingiverse.com/thing:5179237) the washer to fix the wheel wobble, inner wheel hub, and the tool used to make the hole circular in the rubber tire. The tool is meant to be wrapped with sandpaper and put into a drill so that making the hole circular is easy.
+
+**For connections**
+|Receiver ESP32 |Sender ESP32  |
+|--|--|
+|Pin 16 will be used for arm PWM | Pin 36 connected to the right x joystick|
+Pin 17 will be used for bucket PWM|Pin 39 connected to the right y joystick|
+Pin 4 will be used for the left servos PWM|Pin 35 connected to the left x joystick|
+Pin 18 will be used for the right servos PWM|Pin 34 connected to the left y joystick|
+Pin 34 will be used for the reading analog battery level|Pin 23 connected to the right joystick button |
+||Pin 22 connected to the left joystick button|
+||Pin 17 to SDA of OLED|
+||Pin 16 to SCK of OLED|
+For the Receiver ESP32 it will be easier if you create a row of 3 long header pins that make it easier to connect servos to.
+
+In addition to this you may find it useful to solder in a capacitor between the 5v and ground connection of both receiver and sender.
+
+I am omitting the instructions to incorporate the motors into the model due to the fact that the videos mentioned above do a great job explaining.
+
+# 🖥 Code
+
+To use the provided code you must first use the following sketch to find the Mac Address of each device
+
+    
+```c
+// Complete Instructions to Get and Change ESP MAC Address: https://RandomNerdTutorials.com/get-change-esp32-esp8266-mac-address-arduino/
+
+#ifdef ESP32
+  #include <WiFi.h>
+#else
+  #include <ESP8266WiFi.h>
+#endif
+
+void setup(){
+  Serial.begin(115200);
+  Serial.println();
+  Serial.print("ESP Board MAC Address:  ");
+  Serial.println(WiFi.macAddress());
+}
  
+void loop(){
+
+}
+```

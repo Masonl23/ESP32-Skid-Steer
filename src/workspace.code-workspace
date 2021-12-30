@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "sender_esp",
+			"path": "../../sender_esp"
+		},
+		{
+			"name": "reciever_ESP",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

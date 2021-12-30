@@ -6,9 +6,20 @@ Bruder Catepillar Skid Steer model converted to RC, controlled by an ESP32 with 
 
 
 
+
+
+
+
+
+
 > Written with [StackEdit](https://stackedit.io/).
 > # ESP32 Skid Steer Project
 > In this project I converted a [Bruder Skid Steer](https://www.amazon.com/bruder-02482-Caterpillar-Steer-Loader/dp/B07P1673W3/ref=sr_1_3?crid=2AN2IPYR6IWEQ&keywords=bruder%20skid%20steer&qid=1640876858&sprefix=bruder%20skid%20steer,aps,85&sr=8-3) model into a remote controlled version controlled by 2 analog joysticks, of which is then transmitted by an ESP32 to another ESP32 via ESPNOW protocol. The receiver ESP controls the servos with PWM after mapping the raw data from the sender ESP32.
+> 
+ [![ESP32 Bruder](http://img.youtube.com/vi/Ya_37AnNs0E/0.jpg)](http://www.youtube.com/watch?v=Ya_37AnNs0E "ESP32 remote skid steer")
+
+[![Bruder ESP32](http://img.youtube.com/vi/nQAw4l_MV88/0.jpg)](http://www.youtube.com/watch?v=nQAw4l_MV88 "Video Title")
+>
 
 
 #  ⚙️ Parts used
@@ -90,3 +101,14 @@ void loop(){
 
 }
 ```
+Upload this code and both devices and write down each of the Mac Addresses, into the respective copy and replace these addresses in the [sender](https://github.com/Masonl23/ESP32-Skid-Steer/tree/main/sender_esp) and [receiver](https://github.com/Masonl23/ESP32-Skid-Steer/tree/main/reciever_ESP) files above.
+
+Once you have replaced the following you are able to upload the code to each, once uploaded you are most likely going to need to fix the mapping of the joysticks, i tried using math to add a value to the map to fix the issue known as `comp_value` but this is very poorly done.
+
+# Thanks!
+That is all for this project, i would like to give special thanks to Rui Santos who has the code on his [website](https://randomnerdtutorials.com/get-change-esp32-esp8266-mac-address-arduino/)  Random Nerd Tutorials, this site helped a lot! 
+
+Thanks,
+
+Mason Lopez 
+Masonlopez@me.com
